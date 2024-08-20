@@ -14,6 +14,11 @@ namespace WajeSmartAssessment.Api.Controllers;
 [ApiController]
 public class CommentsController(IMediator mediator) : ControllerBase
 {
+    /// <summary>
+    /// Adds a comment to a blog post
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]

@@ -4,7 +4,7 @@ public class Comment
     protected Comment()
     {
     }
-    private Comment(string content, string authorId, string blogId)
+    private Comment(string content, string authorId, Guid blogId)
     {
         Id = Guid.NewGuid();
         Content = content;
@@ -15,7 +15,7 @@ public class Comment
     public string Content { get; set; } = string.Empty;
     public string AuthorId { get; set; } = string.Empty;
     public AppUser? Author { get; set; }
-    public string BlogId { get; set; } = string.Empty;
+    public Guid BlogId { get; set; }
     public Blog? Blog { get; set; }
 
 

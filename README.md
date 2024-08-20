@@ -17,13 +17,14 @@ To set up and run the application locally, follow these steps:
 3. **Navigate to the root folder of the project**
 
 4. **Run the Application**
-   - Open a new terminal in the root directory and run `docker compose up --build -d`
-   - This would spin up an instance of a Mssql database and an instance of the application.
-   - On your terminal Navigate to WajeSmartAssessment.Infrastructure, and run
+   - Open a new terminal in the root directory and run `docker compose up db`
+   - This would spin up an instance of a Mssql database.
+   - Once the database fully comes up, open another terminal window, navigate to WajeSmartAssessment.Infrastructure, and run
    ```
         dotnet ef database update --connection "Server=localhost,1433;Database=WajeSmart;User Id=sa;Password=Password123@;TrustServerCertificate=True;"
    ```
-   - This would update the database running in the docker file (and persisted on your local machine)
+   - This would update the migrations for the database running in the docker file (and persisted on your local machine)
+   - Once migration is complete, run `docker compose up --build -d` to start the application.
    - Confirm that both the application and the database is running. Check this by running `docker ps`.
    - If amongst the running containers, you see `waje.db` and `waje.blogapi`, then you are good to go and can access the application at `http://localhost:5000`
    - If you can only see `waje.db` or none, kindly run `docker compose up --build -d` again.

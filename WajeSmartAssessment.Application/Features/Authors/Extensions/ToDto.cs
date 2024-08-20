@@ -15,4 +15,15 @@ public static class AuthorExtensions
             AvatarUrl = author.AvatarUrl
         };
     }
+
+    public static AuthorDto ToDto(this AppUser author)
+    {
+        return new AuthorDto
+        {
+            Id = author.Id,
+            Name = $"{author.FirstName} {author.LastName}",
+            Email = author.Email!,
+            AvatarUrl = author.AvatarUrl
+        };
+    }
 }

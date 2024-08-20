@@ -28,6 +28,9 @@ public class Post : AuditableEntity
     [ForeignKey(nameof(BlogId))]
     public Blog? Blog { get; set; }
 
+    public ICollection<Like>? Likes { get; set; }
+    public ICollection<Comment>? Comments { get; set; }
+
 
     public static Post Create(string title, string content, List<string> mediaFiles, string authorId, Guid blogId) =>
         new Post(title, content, mediaFiles, authorId, blogId);

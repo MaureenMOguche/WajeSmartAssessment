@@ -22,7 +22,7 @@ public class LikePostCommandHandler(IUnitOfWork db) : IRequestHandler<LikePostCo
             return ApiResponse.Failure(StatusCodes.Status404NotFound, "Post not found");
 
         var likeExist = await db.GetRepository<Like>()
-            .EntityExists(l => l.PostId == Guid.Parse(request.PostId) && l.UserId == request.UserId);
+            .EntityExists(l => l.PostId == Guid.Parse(request.PostId) && l.UserId == currentUser.Id);
 
         if (likeExist)
             return ApiResponse.Failure(StatusCodes.Status400BadRequest, "You have already liked this post");

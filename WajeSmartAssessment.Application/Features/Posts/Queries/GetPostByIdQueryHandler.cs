@@ -6,6 +6,8 @@ using ReenUtility.Responses;
 using WajeSmartAssessment.Application.Contracts.Repository;
 using WajeSmartAssessment.Application.Features.Authors.Dtos;
 using WajeSmartAssessment.Application.Features.Posts.Dtos;
+using WajeSmartAssessment.Application.Features.Posts.Extensions;
+using WajeSmartAssessment.Application.Helpers;
 using WajeSmartAssessment.Domain;
 
 namespace WajeSmartAssessment.Application.Features.Posts.Queries;
@@ -17,28 +19,18 @@ public class GetPostByIdQueryHandler(IUnitOfWork db) : IRequestHandler<GetPostBy
         var post = await db.GetRepository<Post>()
             .GetAsync(p => p.Id == Guid.Parse(request.PostId))
             .Include(x => x.Author)
-            .FirstOrDefaultAsync();
+            .Include(x => x.Likes)
+            .ThenInclude(x => x.User).Take(10)
+            .Include(x => x.Comments).Take(10)
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (post == null)
             return ApiResponse.Failure(StatusCodes.Status404NotFound, $"Post with id {request.PostId} not found");
 
-        var postDto = new PostDto
-        {
-            Id = post.Id.ToString(),
-            Title = post.Title,
-            Content = post.Content,
-            MediaUrls = post.MediaFiles != null ? 
-                JsonConvert.DeserializeObject<List<string>>(post.MediaFiles) : new List<string>(),
-            Author = new AuthorDto
-            {
-                Id = post.Author!.Id,
-                Name = post.Author.FullName,
-                Email = post.Author.Email!,
-                AvatarUrl = post.Author.AvatarUrl,
-            },
-            BlogId = post.BlogId.ToString(),
-        };
+        bool isliked = post.Likes.Any(x => x.UserId == UserHelper.GetCurrentUser()!.Id);
 
-        return ApiResponse<PostDto>.Success(postDto, "Successfully retrieved post");
+        var postDto = post.ToPostDetailDto(isliked);
+        
+        return ApiResponse<PostDetailDto>.Success(postDto, "Successfully retrieved post");
     }
 }

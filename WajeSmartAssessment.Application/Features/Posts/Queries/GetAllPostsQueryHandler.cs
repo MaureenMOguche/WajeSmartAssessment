@@ -22,6 +22,8 @@ public class GetAllPostsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllPos
             || p.Content.ToLower().Contains(lowerSearch));
         }
 
+        posts = posts.OrderByDescending(x => x.CreatedOn);
+
         var postsDto = await posts.ToPostDto().ToListAsync();
 
         var paginated = postsDto.Paginate(request.QueryParams.PageNumber, request.QueryParams.PageSize);

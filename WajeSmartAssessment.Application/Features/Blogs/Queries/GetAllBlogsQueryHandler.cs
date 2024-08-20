@@ -17,6 +17,8 @@ public class GetAllBlogsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllBlo
             blogs = blogs.Where(blog => blog.Title.Contains(request.QueryParams.Search, 
                 StringComparison.CurrentCultureIgnoreCase));
 
+        blogs = blogs.OrderByDescending(x => x.CreatedOn);
+
         var blogList = await blogs.ToListAsync();
 
         var paginated = blogList.Paginate(request.QueryParams.PageNumber, request.QueryParams.PageSize);

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ReenUtility.Responses;
+using WajeSmartAssessment.Application.Dtos;
 using WajeSmartAssessment.Application.Features.Authors.Commands;
 using WajeSmartAssessment.Application.Features.Authors.Queries;
 using WajeSmartAssessment.Application.Middlewares;
@@ -20,13 +21,13 @@ public class AuthorsController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Get all authors
     /// </summary>
-    /// <param name="authorsQuery"></param>
+    /// <param name="queryParams"></param>
     /// <returns></returns>
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [HttpGet("authors")]
-    public async Task<IActionResult> GetAuthors([FromQuery]GetAllAuthorsQuery authorsQuery)
+    public async Task<IActionResult> GetAuthors([FromQuery]BaseQueryParams queryParams)
     {
-        var response = await mediator.Send(authorsQuery);
+        var response = await mediator.Send(new GetAllAuthorsQuery(queryParams));
         return StatusCode(response.StatusCode, response);
     }
 

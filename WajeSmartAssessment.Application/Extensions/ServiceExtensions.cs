@@ -164,7 +164,7 @@ public static class ServiceExtensions
     {
         services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        services.AddValidatorsFromAssemblyContaining<GetBlogByIdQueryValidator>();
+        //services.AddValidatorsFromAssemblyContaining<GetBlogByIdQueryValidator>();
     }
 
     private static void AddApiVersioning(IServiceCollection services)

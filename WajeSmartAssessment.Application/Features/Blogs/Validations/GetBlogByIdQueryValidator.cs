@@ -9,4 +9,5 @@ public class GetBlogByIdQueryValidator : AbstractValidator<GetBlogByIdQuery>
     {
         RuleFor(x => x.BlogId).ValidGuid();
     }
+
 }

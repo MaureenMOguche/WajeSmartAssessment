@@ -38,7 +38,7 @@ To set up and run the application locally, follow these steps:
 
 # About the Application\*\*
 
-    This application is a simple blogging system that allows an admin user to create blogs (by entering blog title and url). Authors (other users) can then register and begin to make posts on the different blogs.
+This application is a simple blogging system that allows an admin user to create blogs (by entering blog title and url). Authors (other users) can then register and begin to make posts on the different blogs.
 
 ## Feature List
 

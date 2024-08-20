@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WajeSmartAssessment.Api", "WajeSmartAssessment.Api\WajeSmartAssessment.Api.csproj", "{3DE08DFE-7E01-4232-8E3E-67CB3B85D747}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WajeSmartAssessment.Application", "WajeSmartAssessment.Application\WajeSmartAssessment.Application.csproj", "{6CD0D732-31D2-4630-B94B-89A29D712A1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WajeSmartAssessment.Infrastructure", "WajeSmartAssessment.Infrastructure\WajeSmartAssessment.Infrastructure.csproj", "{536E0A3B-361D-41B7-8F49-B223EAB1ACDA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WajeSmartAssessment.Domain", "WajeSmartAssessment.Domain\WajeSmartAssessment.Domain.csproj", "{581A2905-D093-4BA9-8705-353CF505C3EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E109DA58-A9A5-46BF-BCB1-99760636C129}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6DC5268A-108C-46B7-91D5-F695098518EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WajeSmartAssessment.Tests", "WajeSmartAssessment.Tests\WajeSmartAssessment.Tests.csproj", "{98A03B6A-F47C-40B6-9730-6D95C4F5B6A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DE08DFE-7E01-4232-8E3E-67CB3B85D747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE08DFE-7E01-4232-8E3E-67CB3B85D747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE08DFE-7E01-4232-8E3E-67CB3B85D747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE08DFE-7E01-4232-8E3E-67CB3B85D747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD0D732-31D2-4630-B94B-89A29D712A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD0D732-31D2-4630-B94B-89A29D712A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD0D732-31D2-4630-B94B-89A29D712A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD0D732-31D2-4630-B94B-89A29D712A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536E0A3B-361D-41B7-8F49-B223EAB1ACDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536E0A3B-361D-41B7-8F49-B223EAB1ACDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536E0A3B-361D-41B7-8F49-B223EAB1ACDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536E0A3B-361D-41B7-8F49-B223EAB1ACDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581A2905-D093-4BA9-8705-353CF505C3EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581A2905-D093-4BA9-8705-353CF505C3EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581A2905-D093-4BA9-8705-353CF505C3EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581A2905-D093-4BA9-8705-353CF505C3EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A03B6A-F47C-40B6-9730-6D95C4F5B6A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A03B6A-F47C-40B6-9730-6D95C4F5B6A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A03B6A-F47C-40B6-9730-6D95C4F5B6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A03B6A-F47C-40B6-9730-6D95C4F5B6A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DE08DFE-7E01-4232-8E3E-67CB3B85D747} = {E109DA58-A9A5-46BF-BCB1-99760636C129}
+		{6CD0D732-31D2-4630-B94B-89A29D712A1D} = {E109DA58-A9A5-46BF-BCB1-99760636C129}
+		{536E0A3B-361D-41B7-8F49-B223EAB1ACDA} = {E109DA58-A9A5-46BF-BCB1-99760636C129}
+		{581A2905-D093-4BA9-8705-353CF505C3EE} = {E109DA58-A9A5-46BF-BCB1-99760636C129}
+		{98A03B6A-F47C-40B6-9730-6D95C4F5B6A4} = {6DC5268A-108C-46B7-91D5-F695098518EF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {972AE9B8-1F8D-4351-B9B3-D157212202AA}
+	EndGlobalSection
+EndGlobal

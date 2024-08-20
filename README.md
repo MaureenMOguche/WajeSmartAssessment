@@ -35,3 +35,24 @@ To set up and run the application locally, follow these steps:
 - After running the command, two containers will start: `waje.db` and `waje.blogapi`.
 - Access the Swagger documentation at [Swagger](http://localhost:5000/swagger/index.html).
 - Send requests to the API at http://localhost:5000/api/v1.
+
+# About the Application\*\*
+
+    This application is a simple blogging system that allows an admin user to create blogs (by entering blog title and url). Authors (other users) can then register and begin to make posts on the different blogs.
+
+## Feature List
+
+- Admin
+
+  - Login with predefined credentials (username: superadmin, password: Password@123)
+  - Create Blogs
+  - Disable or Enable Authors from making posts
+  - View List of blogs
+  - View list of authors
+
+- Authors
+  - Register/Login
+  - View list of blogs
+  - make posts (including media files)
+  - Comment on posts
+  - Like posts

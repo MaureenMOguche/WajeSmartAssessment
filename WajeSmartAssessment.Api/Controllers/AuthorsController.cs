@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReenUtility.Responses;
 using WajeSmartAssessment.Application.Features.Authors.Commands;
 using WajeSmartAssessment.Application.Features.Authors.Queries;
+using WajeSmartAssessment.Application.Middlewares;
 
 namespace WajeSmartAssessment.Api.Controllers;
 
@@ -11,8 +12,9 @@ namespace WajeSmartAssessment.Api.Controllers;
 /// Manages all the operations related to authors
 /// </summary>
 /// <param name="mediator"></param>
-[Route("api/[controller]")]
+[Route("api/v{v:apiVersion}/[controller]")]
 [ApiController]
+[Authorize]
 public class AuthorsController(IMediator mediator) : ControllerBase
 {
     /// <summary>

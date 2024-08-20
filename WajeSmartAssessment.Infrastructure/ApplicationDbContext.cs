@@ -54,4 +54,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Blog> Blogs { get; set; }
+    public DbSet<Like> Likes { get; set; }
+    public DbSet<Comment> Comments { get; set; }
 }

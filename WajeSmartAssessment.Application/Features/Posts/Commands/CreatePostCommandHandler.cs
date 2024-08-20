@@ -17,6 +17,15 @@ public class CreatePostCommandHandler(IUnitOfWork db,
         if (user is null)
             return ApiResponse.Failure(StatusCodes.Status401Unauthorized, "Unauthorized");
 
+        var author = await db.GetRepository<AppUser>().GetAsync(x => x.Id == user.Id && x.Role == UserRole.Author)
+            .FirstOrDefaultAsync();
+
+        if (author is null)
+            return ApiResponse.Failure(StatusCodes.Status403Forbidden, "Only authors can create posts");
+
+        if (!author.IsActive)
+            return ApiResponse.Failure(StatusCodes.Status403Forbidden, "You have been disabled from making posts, please contact Admin");
+
         var blogExists = await db.GetRepository<Blog>().EntityExists(x => x.Id == Guid.Parse(request.BlogId));
 
         if (!blogExists)

@@ -37,4 +37,9 @@
     <ProjectReference Include="..\WajeSmartAssessment.Domain\WajeSmartAssessment.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Comments\Queries\" />
+    <Folder Include="Features\Engagement\Queries\" />
+  </ItemGroup>
+
 </Project>

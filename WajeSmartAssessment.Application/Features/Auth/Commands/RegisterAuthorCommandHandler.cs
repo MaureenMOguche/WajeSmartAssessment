@@ -18,6 +18,11 @@ public class RegisterAuthorCommandHandler(UserManager<AppUser> userManager,
         if (authorExists)
             return ApiResponse.Failure(StatusCodes.Status409Conflict, "Author already exists");
 
+        var usernameExists = await userManager.FindByNameAsync(request.Username) is not null;
+
+        if (usernameExists)
+            return ApiResponse.Failure(StatusCodes.Status409Conflict, "Username already exists");
+
         string? avatarUrl = null;
         if (request.AvatarUrl is not null)
             avatarUrl = await firebaseService.Upload(request.AvatarUrl, request.Username, "avatars");

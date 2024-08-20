@@ -4,12 +4,12 @@ namespace WajeSmartAssessment.Domain;
 public class AppUser : IdentityUser
 {
     protected AppUser(): base() { }
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public DateTime RefreshExpiry { get; set; }
-    public string RefreshToken { get; set; } = string.Empty;
-    public string? AvatarUrl { get; set; }
-    public UserRole Role { get; set; }
+    public string FirstName { get; private set; } = string.Empty;
+    public string LastName { get; private set; } = string.Empty;
+    public DateTime RefreshExpiry { get; private set; }
+    public string RefreshToken { get; private set; } = string.Empty;
+    public string? AvatarUrl { get; private set; }
+    public UserRole Role { get; private set; }
     public bool IsActive { get; set; } = true;
 
 

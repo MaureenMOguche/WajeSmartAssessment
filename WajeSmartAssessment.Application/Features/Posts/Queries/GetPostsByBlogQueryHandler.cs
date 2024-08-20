@@ -23,8 +23,11 @@ public class GetPostsByBlogQueryHandler(IUnitOfWork db) : IRequestHandler<GetPos
             .Include(x => x.Author);
 
         if (!string.IsNullOrEmpty(request.QueryParams.Search))
-            posts = posts.Where(post => post.Title.Contains(request.QueryParams.Search, 
-                StringComparison.CurrentCultureIgnoreCase));
+        {
+            var search = request.QueryParams.Search.ToLower();
+            posts = posts.Where(post => post.Title.ToLower().Contains(search) ||
+            post.Content.ToLower().Contains(search));
+        }
 
         var postsDto = await posts.ToPostDto().ToListAsync();
 

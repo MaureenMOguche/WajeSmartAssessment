@@ -37,8 +37,4 @@
     <ProjectReference Include="..\WajeSmartAssessment.Domain\WajeSmartAssessment.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Authors\Commands\" />
-  </ItemGroup>
-
 </Project>

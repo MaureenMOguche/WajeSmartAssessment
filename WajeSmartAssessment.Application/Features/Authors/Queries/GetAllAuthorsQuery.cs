@@ -1,4 +1,8 @@
-﻿using WajeSmartAssessment.Application.Dtos;
+﻿using MediatR;
+using ReenUtility.Responses;
+using WajeSmartAssessment.Application.Dtos;
 
 namespace WajeSmartAssessment.Application.Features.Authors.Queries;
-public record GetAllAuthorsQuery(BaseQueryParams QueryParams) : IRequest<PaginatedRespon>>;
+public record GetAllAuthorsQuery(BaseQueryParams QueryParams) : IRequest<ApiResponse>;
+
+

@@ -10,6 +10,7 @@ public class AppUser : IdentityUser
     public string RefreshToken { get; set; } = string.Empty;
     public string? AvatarUrl { get; set; }
     public UserRole Role { get; set; }
+    public bool IsActive { get; set; } = true;
 
 
     private AppUser(string firstName, string lastname, string username, 

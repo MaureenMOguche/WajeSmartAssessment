@@ -5,6 +5,7 @@ using WajeSmartAssessment.Application.Dtos;
 using WajeSmartAssessment.Application.Features.Authors.Commands;
 using WajeSmartAssessment.Application.Features.Authors.Queries;
 using WajeSmartAssessment.Application.Middlewares;
+using WajeSmartAssessment.Domain;
 
 namespace WajeSmartAssessment.Api.Controllers;
 
@@ -15,7 +16,7 @@ namespace WajeSmartAssessment.Api.Controllers;
 /// <param name="mediator"></param>
 [Route("api/v{v:apiVersion}/[controller]")]
 [ApiController]
-[Authorize]
+[Authorize("Admin")]
 public class AuthorsController(IMediator mediator) : ControllerBase
 {
     /// <summary>

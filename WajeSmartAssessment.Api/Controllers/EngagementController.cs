@@ -19,15 +19,15 @@ public class EngagementController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Like a post
     /// </summary>
-    /// <param name="command"></param>
+    /// <param name="postId"></param>
     /// <returns></returns>
     [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status500InternalServerError)]
-    [HttpPost("like")]
-    public async Task<IActionResult> LikePost([FromBody] LikePostCommand command)
+    [HttpPost("like/{postId}")]
+    public async Task<IActionResult> LikePost(string postId)
     {
-        var response = await mediator.Send(command);
+        var response = await mediator.Send(new LikePostCommand(postId));
         return StatusCode(response.StatusCode, response);
     }
 }

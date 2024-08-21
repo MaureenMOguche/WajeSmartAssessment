@@ -12,8 +12,8 @@ using WajeSmartAssessment.Infrastructure;
 namespace WajeSmartAssessment.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240820231040_PostId")]
-    partial class PostId
+    [Migration("20240821072920_InitialSetup")]
+    partial class InitialSetup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -11,7 +11,7 @@ public class GetAllBlogsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllBlo
 {
     public async Task<ApiResponse> Handle(GetAllBlogsQuery request, CancellationToken cancellationToken)
     {
-        var blogs = db.GetRepository<Blog>().GetAsync();
+        var blogs = db.GetRepository<Blog>().GetQueryable();
 
         if (!string.IsNullOrEmpty(request.QueryParams.Search))
             blogs = blogs.Where(blog => blog.Title.Contains(request.QueryParams.Search, 

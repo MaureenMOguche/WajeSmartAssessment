@@ -17,7 +17,7 @@ public class GetPostByIdQueryHandler(IUnitOfWork db) : IRequestHandler<GetPostBy
     public async Task<ApiResponse> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
     {
         var post = await db.GetRepository<Post>()
-            .GetAsync(p => p.Id == Guid.Parse(request.PostId))
+            .GetQueryable(p => p.Id == Guid.Parse(request.PostId))
             .Include(x => x.Author)
             .Include(x => x.Likes)
             .ThenInclude(x => x.User).Take(10)

@@ -55,7 +55,7 @@ public class CacheService : ICacheService
     private async Task<IEnumerable<Blog>> FetchAbove500(string cacheKey, int pageSize, int skipCount)
     {
         var fetchedBlogsQuery = _db.GetRepository<Blog>()
-            .GetAsync()
+            .GetQueryable()
             .OrderByDescending(x => x.CreatedOn);
 
         // Fetch and cache the first 500 items if not already cached
@@ -80,7 +80,7 @@ public class CacheService : ICacheService
     private async Task<IEnumerable<PostDto>> FetchPostsAbove500(string cacheKey, int pageSize, int skipCount)
     {
         var fetchedPostsQuery = _db.GetRepository<Post>()
-            .GetAsync()
+            .GetQueryable()
             .OrderByDescending(x => x.CreatedOn);
 
         // Fetch and cache the first 500 items if not already cached

@@ -14,7 +14,7 @@ public class DisableEnableAuthorCommandHandler(IUnitOfWork db) : IRequestHandler
     public async Task<ApiResponse> Handle(DisableEnableAuthorCommand request, CancellationToken cancellationToken)
     {
         var author = await db.GetRepository<AppUser>()
-            .GetAsync(user => user.Id == request.AuthorId, true)
+            .GetQueryable(user => user.Id == request.AuthorId, true)
             .FirstOrDefaultAsync();
 
         if (author == null)

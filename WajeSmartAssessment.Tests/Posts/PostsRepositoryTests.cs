@@ -49,7 +49,7 @@ public class PostsRepostioryTests : RepositoryTestsSetupBase<Post>
         var postRepository = UnitOfWork.GetRepository<Post>();
 
         // Act
-        var result = postRepository.GetAsync();
+        var result = postRepository.GetQueryable();
 
         // Assert
         Assert.Equal(3, result.Count());

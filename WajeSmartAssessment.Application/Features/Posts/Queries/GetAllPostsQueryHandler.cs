@@ -9,11 +9,11 @@ using WajeSmartAssessment.Domain;
 
 namespace WajeSmartAssessment.Application.Features.Posts.Queries;
 
-public class GetAllPostsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllPostsQuery, ApiResponse>
+public class GetAllPostsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllPostsQuery, ApiResponse<Paginated<PostDto>>>
 {
-    public async Task<ApiResponse> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResponse<Paginated<PostDto>>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
     {
-        var posts = db.GetRepository<Post>().GetAsync();
+        var posts = db.GetRepository<Post>().GetQueryable();
 
         if (!string.IsNullOrEmpty(request.QueryParams.Search))
         {

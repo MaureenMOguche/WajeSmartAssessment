@@ -46,7 +46,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     //    return await _dbSet.AnyAsync(filter);
     //}
 
-    public IQueryable<T> GetAsync(Expression<Func<T, bool>>? filter = null, bool trackChanges = false)
+    public IQueryable<T> GetQueryable(Expression<Func<T, bool>>? filter = null, bool trackChanges = false)
     {
         IQueryable<T> query = _dbSet;
         if (filter != null)
@@ -56,6 +56,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         if (!trackChanges)
             return query.AsNoTracking();
         return query;
+    }
+
+    public async Task<T?> GetById(string id)
+    {
+        return await _dbSet.FindAsync(id);
     }
 
     public void Update(T entity)

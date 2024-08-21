@@ -13,7 +13,7 @@ public class GetAllAuthorsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllA
 {
     public async Task<ApiResponse> Handle(GetAllAuthorsQuery request, CancellationToken cancellationToken)
 {
-    var authors = db.GetRepository<AppUser>().GetAsync(user => user.Role == UserRole.Author);
+    var authors = db.GetRepository<AppUser>().GetQueryable(user => user.Role == UserRole.Author);
 
     if (!string.IsNullOrEmpty(request.QueryParams.Search))
     {
@@ -31,7 +31,7 @@ public class GetAllAuthorsQueryHandler(IUnitOfWork db) : IRequestHandler<GetAllA
 
     var authorIds = pagedAuthors.Select(user => user.Id).ToList();
 
-    var postCounts = db.GetRepository<Post>().GetAsync(post => authorIds.Contains(post.AuthorId))
+    var postCounts = db.GetRepository<Post>().GetQueryable(post => authorIds.Contains(post.AuthorId))
                .GroupBy(post => post.AuthorId)
                .Select(group => new
                {

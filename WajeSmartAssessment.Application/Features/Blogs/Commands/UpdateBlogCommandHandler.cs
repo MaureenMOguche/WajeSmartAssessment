@@ -12,7 +12,7 @@ public class UpdateBlogCommandHandler(IUnitOfWork db) : IRequestHandler<UpdateBl
     public async Task<ApiResponse> Handle(UpdateBlogCommand request, CancellationToken cancellationToken)
     {
         var blog = await db.GetRepository<Blog>()
-            .GetAsync(x => x.Id == Guid.Parse(request.BlogId), true)
+            .GetQueryable(x => x.Id == Guid.Parse(request.BlogId), true)
             .FirstOrDefaultAsync();
 
         if (blog == null)

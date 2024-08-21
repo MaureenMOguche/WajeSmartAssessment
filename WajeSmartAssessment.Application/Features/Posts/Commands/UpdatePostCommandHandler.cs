@@ -26,7 +26,7 @@ public class UpdatePostCommandHandler(IUnitOfWork db,
         }
 
         var post = await db.GetRepository<Post>()
-            .GetAsync(x => x.Id == Guid.Parse(request.PostId), true)
+            .GetQueryable(x => x.Id == Guid.Parse(request.PostId), true)
             .FirstOrDefaultAsync();
 
         if (post is null)

@@ -12,7 +12,7 @@ public class DeleteBlogCommandHandler(IUnitOfWork db) : IRequestHandler<DeleteBl
     public async Task<ApiResponse> Handle(DeleteBlogCommand request, CancellationToken cancellationToken)
     {
         var blog = await db.GetRepository<Blog>()
-            .GetAsync(b => b.Id == Guid.Parse(request.BlogId), true)
+            .GetQueryable(b => b.Id == Guid.Parse(request.BlogId), true)
             .FirstOrDefaultAsync();
 
         if (blog == null)

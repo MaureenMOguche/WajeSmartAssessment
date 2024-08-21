@@ -15,13 +15,13 @@ public class GetAuthorByIdQueryHandler(IUnitOfWork db) : IRequestHandler<GetAuth
     public async Task<ApiResponse> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
     {
         var author = await db.GetRepository<AppUser>()
-            .GetAsync(x => x.Id == request.authorId && x.Role == UserRole.Author)
+            .GetQueryable(x => x.Id == request.authorId && x.Role == UserRole.Author)
             .FirstOrDefaultAsync();
 
         if (author == null)
             return ApiResponse.Failure(StatusCodes.Status404NotFound, "Author not found");
 
-        var postCounts = await db.GetRepository<Post>().GetAsync(x => x.AuthorId == author.Id).CountAsync();
+        var postCounts = await db.GetRepository<Post>().GetQueryable(x => x.AuthorId == author.Id).CountAsync();
 
         var authorDto = author.ToDto(postCounts);
 

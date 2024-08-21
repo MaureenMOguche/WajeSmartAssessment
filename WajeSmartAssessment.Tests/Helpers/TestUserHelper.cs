@@ -41,7 +41,7 @@ namespace WajeSmartAssessment.Tests.Helpers
 
         public UserPrincipal SetupRegularAuthor(string id)
         {
-            SetupCurrentUser(id, "user", "Author");
+            SetupCurrentUser(id, "Author", "user");
             return new UserPrincipal
             {
                 Id = id,

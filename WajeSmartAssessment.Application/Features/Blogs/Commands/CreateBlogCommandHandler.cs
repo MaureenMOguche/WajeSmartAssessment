@@ -11,7 +11,7 @@ public class CreateBlogCommandHandler(IUnitOfWork db) : IRequestHandler<CreateBl
     {
         var blogExists = await db.GetRepository<Blog>()
             .EntityExists(x => x.Title.ToLower().Equals(request.Title.ToLower())
-            && x.Url.Equals(request.Title.ToLower()));
+            && x.Url.Equals(request.Url.ToLower()));
 
         if (blogExists)
             return ApiResponse.Failure(StatusCodes.Status409Conflict, "Blog already exists");

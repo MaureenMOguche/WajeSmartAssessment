@@ -19,7 +19,7 @@ public class GetPostsByBlogQueryHandler(IUnitOfWork db) : IRequestHandler<GetPos
             return ApiResponse.Failure(StatusCodes.Status404NotFound, "Blog not found");
 
         IQueryable<Post> posts = db.GetRepository<Post>()
-            .GetAsync(post => post.BlogId == Guid.Parse(request.BlogId))
+            .GetQueryable(post => post.BlogId == Guid.Parse(request.BlogId))
             .Include(x => x.Author);
 
         if (!string.IsNullOrEmpty(request.QueryParams.Search))

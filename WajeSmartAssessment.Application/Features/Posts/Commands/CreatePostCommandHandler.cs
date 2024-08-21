@@ -17,8 +17,8 @@ public class CreatePostCommandHandler(IUnitOfWork db,
         if (user is null)
             return ApiResponse.Failure(StatusCodes.Status401Unauthorized, "Unauthorized");
 
-        var author = await db.GetRepository<AppUser>().GetAsync(x => x.Id == user.Id && x.Role == UserRole.Author)
-            .FirstOrDefaultAsync();
+        //var author = await db.GetRepository<AppUser>().GetById(user.Id);
+        var author = await db.GetRepository<AppUser>().GetQueryable(x => x.Id == user.Id).FirstOrDefaultAsync();
 
         if (author is null)
             return ApiResponse.Failure(StatusCodes.Status403Forbidden, "Only authors can create posts");

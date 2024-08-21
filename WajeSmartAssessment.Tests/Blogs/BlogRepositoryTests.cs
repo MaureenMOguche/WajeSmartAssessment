@@ -44,7 +44,7 @@ public class BlogRepositoryTests : RepositoryTestsSetupBase<Blog>
         var blogRepository = UnitOfWork.GetRepository<Blog>();
 
         // Act
-        var result = blogRepository.GetAsync();
+        var result = blogRepository.GetQueryable();
 
         // Assert
         Assert.Equal(3, result.Count());

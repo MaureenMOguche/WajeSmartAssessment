@@ -20,7 +20,7 @@ public class GetPostsByAuthorQueryHandler(IUnitOfWork db) : IRequestHandler<GetP
             return ApiResponse.Failure(StatusCodes.Status404NotFound, "Author not found");
 
         IQueryable<Post> posts = db.GetRepository<Post>()
-            .GetAsync(post => post.AuthorId == request.AuthorId)
+            .GetQueryable(post => post.AuthorId == request.AuthorId)
             .Include(x => x.Author);
 
         if (!string.IsNullOrEmpty(request.QueryParams.Search))

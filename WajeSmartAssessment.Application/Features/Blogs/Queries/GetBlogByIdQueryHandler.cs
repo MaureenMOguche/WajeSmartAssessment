@@ -19,7 +19,7 @@ public class GetBlogByIdQueryHandler(IUnitOfWork db) : IRequestHandler<GetBlogBy
             return ApiResponse.Failure(StatusCodes.Status400BadRequest, string.Join(", ", result.Errors));
 
         var blog = await db.GetRepository<Blog>()
-            .GetAsync(b => b.Id == Guid.Parse(request.BlogId))
+            .GetQueryable(b => b.Id == Guid.Parse(request.BlogId))
             .FirstOrDefaultAsync();
 
         if (blog == null)

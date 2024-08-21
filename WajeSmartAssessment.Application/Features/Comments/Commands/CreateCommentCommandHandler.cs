@@ -16,7 +16,7 @@ public class CreateCommentCommandHandler(IUnitOfWork db) : IRequestHandler<Creat
             return ApiResponse.Failure(StatusCodes.Status401Unauthorized, "Unauthorized");
 
         var postExists = await db.GetRepository<Post>()
-            .GetAsync(x => x.Id == Guid.Parse(request.PostId))
+            .GetQueryable(x => x.Id == Guid.Parse(request.PostId))
             .FirstOrDefaultAsync();
 
         if (postExists is null)

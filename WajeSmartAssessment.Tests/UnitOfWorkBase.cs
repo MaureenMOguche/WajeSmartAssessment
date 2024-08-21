@@ -1,13 +1,9 @@
 ﻿using Moq;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using WajeSmartAssessment.Infrastructure;
 using WajeSmartAssessment.Application.Contracts.Repository;
+using WajeSmartAssessment.Infrastructure;
+using WajeSmartAssessment.Tests;
+using WajeSmartAssessment.Tests.Helpers;
 
 public abstract class UnitOfWorkTestsSetupBase
 {
@@ -29,13 +25,33 @@ public abstract class UnitOfWorkTestsSetupBase
         var entityList = new List<TEntity>();
         EntityLists[typeof(TEntity)] = entityList;
 
-        var mockSet = SetupMockSet(entityList);
-        MockContext.Setup(c => c.Set<TEntity>()).Returns(mockSet.Object);
-
         var mockRepo = new Mock<IGenericRepository<TEntity>>();
-        mockRepo.Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<TEntity, bool>>>(), It.IsAny<bool>()))
+
+        //    mockRepo.Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<TEntity, bool>>>(), It.IsAny<bool>()))
+        //.Returns((Expression<Func<TEntity, bool>> filter, bool trackChanges) =>
+        //{
+        //    IQueryable<TEntity> query = entityList.AsQueryable();
+        //    if (filter != null)
+        //    {
+        //        query = query.Where(filter);
+        //    }
+        //    return query;
+        //});
+
+
+        mockRepo.Setup(repo => repo.GetQueryable(It.IsAny<Expression<Func<TEntity, bool>>>(), It.IsAny<bool>()))
             .Returns((Expression<Func<TEntity, bool>> filter, bool trackChanges) =>
-                entityList.AsQueryable().Where(filter));
+            {
+                IQueryable<TEntity> query = new AsyncEnumerable<TEntity>(entityList);
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+                return query;
+            });
+
+        mockRepo.Setup(repo => repo.GetById(It.IsAny<string>()))
+           .ReturnsAsync((Guid id) => entityList.FirstOrDefault(e => GetEntityId(e).Equals(id)));
 
         mockRepo.Setup(repo => repo.AddAsync(It.IsAny<TEntity>()))
             .Returns((TEntity entity) => {
@@ -43,25 +59,30 @@ public abstract class UnitOfWorkTestsSetupBase
                 return Task.FromResult(entity);
             });
 
+        //mockRepo.Setup(repo => repo.EntityExists(It.IsAny<Expression<Func<TEntity, bool>>>()))
+        //    .ReturnsAsync((Expression<Func<TEntity, bool>> predicate) => entityList.Any(predicate.Compile()));
+
         mockRepo.Setup(repo => repo.EntityExists(It.IsAny<Expression<Func<TEntity, bool>>>()))
-            .Returns((Func<TEntity, bool> predicate) =>
-                Task.FromResult(entityList.FirstOrDefault(predicate) != null));
+            .ReturnsAsync((Expression<Func<TEntity, bool>> predicate) => entityList.AsQueryable().Any(predicate));
+
 
         MockRepositories[typeof(TEntity)] = mockRepo;
 
         MockUnitOfWork.Setup(uow => uow.GetRepository<TEntity>())
             .Returns(mockRepo.Object);
+
+
+        SetupSaveChangesAsync();
     }
 
-    private Mock<DbSet<TEntity>> SetupMockSet<TEntity>(List<TEntity> data) where TEntity : class
+    private Guid GetEntityId<TEntity>(TEntity entity) where TEntity : class
     {
-        var queryableData = data.AsQueryable();
-        var mockSet = new Mock<DbSet<TEntity>>();
-        mockSet.As<IQueryable<TEntity>>().Setup(m => m.Provider).Returns(queryableData.Provider);
-        mockSet.As<IQueryable<TEntity>>().Setup(m => m.Expression).Returns(queryableData.Expression);
-        mockSet.As<IQueryable<TEntity>>().Setup(m => m.ElementType).Returns(queryableData.ElementType);
-        mockSet.As<IQueryable<TEntity>>().Setup(m => m.GetEnumerator()).Returns(() => queryableData.GetEnumerator());
-        return mockSet;
+        var idProperty = typeof(TEntity).GetProperty("Id");
+        if (idProperty != null && idProperty.PropertyType == typeof(Guid))
+        {
+            return (Guid)idProperty.GetValue(entity);
+        }
+        throw new InvalidOperationException($"Entity {typeof(TEntity).Name} does not have a Guid Id property.");
     }
 
     protected Mock<IGenericRepository<TEntity>> GetMockRepository<TEntity>() where TEntity : class
@@ -72,5 +93,23 @@ public abstract class UnitOfWorkTestsSetupBase
     protected List<TEntity> GetEntityList<TEntity>() where TEntity : class
     {
         return (List<TEntity>)EntityLists[typeof(TEntity)];
+    }
+
+    protected void AddEntity<TEntity>(TEntity entity) where TEntity : class
+    {
+        var entityList = GetEntityList<TEntity>();
+        entityList.Add(entity);
+    }
+
+    protected void SetupSaveChangesAsync(bool returnValue = true)
+    {
+        MockUnitOfWork.Setup(uow => uow.SaveChangesAsync())
+            .ReturnsAsync(returnValue);
+    }
+
+    // New method to verify SaveChangesAsync was called
+    protected void VerifySaveChangesAsyncCalled(Times times)
+    {
+        MockUnitOfWork.Verify(uow => uow.SaveChangesAsync(), times);
     }
 }

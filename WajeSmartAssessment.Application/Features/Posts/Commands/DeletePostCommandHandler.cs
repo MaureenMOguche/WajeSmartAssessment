@@ -18,7 +18,7 @@ public class DeletePostCommandHandler(IUnitOfWork db) : IRequestHandler<DeletePo
             return ApiResponse.Failure(StatusCodes.Status401Unauthorized, "Unauthorized access.");
 
         var post = await db.GetRepository<Post>()
-            .GetAsync(p => p.Id == Guid.Parse(request.PostId), true)
+            .GetQueryable(p => p.Id == Guid.Parse(request.PostId), true)
             .FirstOrDefaultAsync();
 
         if (post == null)

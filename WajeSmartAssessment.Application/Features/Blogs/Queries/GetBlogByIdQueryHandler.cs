@@ -12,11 +12,6 @@ public class GetBlogByIdQueryHandler(IUnitOfWork db) : IRequestHandler<GetBlogBy
 {
     public async Task<ApiResponse> Handle(GetBlogByIdQuery request, CancellationToken cancellationToken)
     {
-        var validator = new GetBlogByIdQueryValidator();
-        var result = validator.Validate(request);
-
-        if (!result.IsValid)
-            return ApiResponse.Failure(StatusCodes.Status400BadRequest, string.Join(", ", result.Errors));
 
         var blog = await db.GetRepository<Blog>()
             .GetQueryable(b => b.Id == Guid.Parse(request.BlogId))

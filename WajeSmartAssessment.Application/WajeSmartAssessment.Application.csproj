@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="DtoValidations\**" />
+    <Compile Remove="Features\Comments\Validators\**" />
     <EmbeddedResource Remove="DtoValidations\**" />
+    <EmbeddedResource Remove="Features\Comments\Validators\**" />
     <None Remove="DtoValidations\**" />
+    <None Remove="Features\Comments\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>

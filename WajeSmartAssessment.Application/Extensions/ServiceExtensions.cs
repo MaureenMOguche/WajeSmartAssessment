@@ -62,7 +62,7 @@ public static class ServiceExtensions
         services.AddScoped<IHttpService, HttpService>();
         services.AddScoped<IFirebaseService, FirebaseService>();
         services.AddSingleton<ITokenHelper, TokenHelper>();
-        services.AddValidatorsFromAssemblyContaining<GetBlogByIdQueryValidator>();
+        //services.AddValidatorsFromAssemblyContaining<CreateCommentCommandValidator>();
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetCallingAssembly());

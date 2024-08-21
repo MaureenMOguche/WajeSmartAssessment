@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReenUtility.Responses;
 using WajeSmartAssessment.Application.Features.Comments.Commands;
+using WajeSmartAssessment.Application.Middlewares;
 
 namespace WajeSmartAssessment.Api.Controllers;
 
@@ -10,8 +10,9 @@ namespace WajeSmartAssessment.Api.Controllers;
 /// Manages comments
 /// </summary>
 /// <param name="mediator"></param>
-[Route("api/[controller]")]
+[Route("api/v{v:apiVersion}/[controller]")]
 [ApiController]
+[Authorize("Author")]
 public class CommentsController(IMediator mediator) : ControllerBase
 {
     /// <summary>
